@@ -1,0 +1,238 @@
+{
+	"info": {
+		"_postman_id": "09ef808e-540f-4f0b-86fc-d36f693c6f21",
+		"name": "Google Maps API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40724153"
+	},
+	"item": [
+		{
+			"name": "Add API JSON",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const resp = pm.response.json()\r",
+							"pm.environment.set(\"PlaceID\", resp.place_id);\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(resp.place_id);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"location\":{\r\n        \"lat\" : -38.383494,\r\n        \"lng\" : 33.427362\r\n    },\r\n    \"accuracy\":50,\r\n    \"name\":\"Frontline house\",\r\n    \"phone_number\":\"(+91) 983 893 3937\",\r\n    \"address\" : \"29, side layout, cohen 09\",\r\n    \"types\": [\"shoe park\",\"shop\"],\r\n    \"website\" : \"http://google.com\",\r\n    \"language\" : \"French-IN\"\r\n\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/maps/api/place/add/json?key={{key}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"maps",
+						"api",
+						"place",
+						"add",
+						"json"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{key}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete API JSON",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const resp = pm.response.json()\r",
+							"pm.environment.set(\"PlaceID\", resp.place_id);\r",
+							"\r",
+							"//pm.test(\"Status code is 200\", function () {\r",
+							" //   pm.response.to.have.status(200);\r",
+							"//});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "placeID",
+						"value": "ea59b843eec4fa9d9a00a99836c9bda7",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"place_id\":{{PlaceID}}          \r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/maps/api/place/delete/json?key={{key}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"maps",
+						"api",
+						"place",
+						"delete",
+						"json"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{key}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add API XML",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonObject = xml2Json(pm.response.text());\r",
+							"console.log(jsonObject)\r",
+							"\r",
+							"var id = jsonObject.response.place_id\r",
+							"pm.environment.set(\"place id\", id)\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n<root>\r\n    <location>\r\n        <lat>-38.383494</lat>\r\n        <lng>33.427362</lng>\r\n    </location>\r\n    <accuracy>50</accuracy>\r\n    <name>The Mens store</name>\r\n    <phone_number>(+91) 983 893 3937</phone_number>\r\n    <address>Anna Salai, Chennai</address>\r\n    <types>shoe park</types>\r\n    <types>kadai</types>\r\n    <website>http://google.com</website>\r\n    <language>tamil-IN</language>\r\n</root>\r\n",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/maps/api/place/add/xml?key={{key}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"maps",
+						"api",
+						"place",
+						"add",
+						"xml"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{key}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete API XML",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonObject = xml2Json(pm.response.text());\r",
+							"console.log(jsonObject)\r",
+							"\r",
+							"var id = jsonObject.response.place_id\r",
+							"pm.environment.set(\"place id\", id)\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n<root>\r\n    <place_id>{{PlaceID}}</place_id>\r\n</root>\r\n",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/maps/api/place/delete/xml?key={{key}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"maps",
+						"api",
+						"place",
+						"delete",
+						"xml"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{key}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
